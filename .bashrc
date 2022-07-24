@@ -6,8 +6,10 @@
 [[ $- != *i* ]] && return
 
 alias ls='ls --color=auto'
-alias ll='ls -l'
-PS1='[\u@\h \W]\$ '
+alias ll='ls -la --color=auto'
+alias ..='cd ..'
+alias ...='cd ../..'
+
 
 function __setprompt
 {
