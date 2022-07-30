@@ -10,35 +10,50 @@ vim.api.nvim_create_autocmd(
 	{ command = "source <afile> | PackerCompile", group = packer_group, pattern = "init.lua" }
 )
 
-require("packer").startup(function(use)
+-- Plugins
+require('packer').startup(function(use)
 	use "wbthomason/packer.nvim"
 
 	use "andweeb/presence.nvim"
-	use { "catppuccin/nvim", as = "catppuccin" }
 	use "glepnir/dashboard-nvim"
 	use "hrsh7th/cmp-nvim-lsp"
 	use "hrsh7th/nvim-cmp"
 	use "jose-elias-alvarez/null-ls.nvim"
-	use "kyazdani42/nvim-web-devicons"
 	use "L3MON4D3/LuaSnip"
 	use "lewis6991/gitsigns.nvim"
-	use "neovim/nvim-lspconfig"
-	use "nvim-lua/plenary.nvim"
 	use "nvim-lualine/lualine.nvim"
 	use "nvim-telescope/telescope.nvim"
-	use "nvim-telescope/telescope-file-browser.nvim"
 	use "nvim-treesitter/nvim-treesitter"
 	use "onsails/lspkind-nvim"
 	use "ryanoasis/vim-devicons"
 	use "saadparwaiz1/cmp_luasnip"
-	use "simrat39/rust-tools.nvim"
 	use "tpope/vim-commentary"
 	use "williamboman/nvim-lsp-installer"
 	use "windwp/nvim-autopairs"
 	use "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
 	use "ellisonleao/gruvbox.nvim"
+	use {"akinsho/toggleterm.nvim", tag = 'v2.*', config = function() require("toggleterm").setup() end}
+	use {"https://github.com/nvim-neo-tree/neo-tree.nvim", 
+			branch = "v2.x", 
+			requires = { 
+				"nvim-lua/plenary.nvim",
+				"kyazdani42/nvim-web-devicons",
+				"MunifTanjim/nui.nvim",
+	  		}
+		}
+	use {"ray-x/navigator.lua",
+			requires = {
+				{ "ray-x/guihua.lua", run = "cd lua/fzy && make" },
+				{ "neovim/nvim-lspconfig" },
+			}
+		}
+	use "https://github.com/famiu/bufdelete.nvim"
+	use "https://github.com/mrjones2014/smart-splits.nvim"
+	use "https://github.com/numToStr/Comment.nvim"
+	use "https://github.com/akinsho/bufferline.nvim"
 end)
 
+-- Vim config
 vim.o.clipboard = "unnamedplus"
 vim.o.ignorecase = true
 vim.o.lazyredraw = true
@@ -50,95 +65,85 @@ vim.o.splitright = true
 vim.o.tabstop = 4
 vim.o.termguicolors = true
 vim.o.updatetime = 100
-
-vim.g.mapleader = " "
-
-vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
-vim.keymap.set("n", "<Leader>w", "<C-w>k")
-vim.keymap.set("n", "<Leader>a", "<C-w>h")
-vim.keymap.set("n", "<Leader>s", "<C-w>j")
-vim.keymap.set("n", "<Leader>d", "<C-w>l")
-vim.keymap.set("n", "<Leader>j", ":bp<CR>", { silent = true })
-vim.keymap.set("n", "<Leader>k", ":bn<CR>", { silent = true })
-vim.keymap.set("n", "<Leader>q", ":bp<CR>:bd #<CR>", { silent = true })
-vim.keymap.set("n", "<Leader>/", ":let @/ = \"\"<CR>", { silent = true })
-vim.keymap.set("n", "<Leader>y", ":%y<CR>")
-vim.keymap.set("n", "k", "v:count == 0 ? \"gk\" : \"k\"", { expr = true, silent = true })
-vim.keymap.set("n", "j", "v:count == 0 ? \"gj\" : \"j\"", { expr = true, silent = true })
-vim.keymap.set("n", "<Leader>l", ":vsplit term://fish <CR>", { silent = true })
-vim.keymap.set("t", "<Leader><Esc>", "<C-\\><C-n>", { silent = true })
-vim.keymap.set("n", "<Leader>v", ":edit ~/.config/nvim/lua/init.lua<CR>", { silent = true })
-
-local lang_maps = {
-	cpp = { build = "g++ % -o %:r", exec = "./%:r" },
-	typescript = { build = "deno compile %", exec = "deno run %" },
-	javascript = { build = "deno compile %", exec = "deno run %" },
-	python = { exec = "python %" },
-	java = { build = "javac %", exec = "java %:r" },
-	sh = { exec = "./%" },
-	go = { build = "go build", exec = "go run %" },
-	rust = { exec = "cargo run" },
-	arduino = {
-		build = "arduino-cli compile --fqbn arduino:avr:uno %:r",
-		exec = "arduino-cli upload -p /dev/ttyACM0 --fqbn arduino:avr:uno %:r",
-	},
-}
-for lang, data in pairs(lang_maps) do
-	if data.build ~= nil then
-		vim.api.nvim_create_autocmd(
-			"FileType",
-			{ command = "nnoremap <Leader>b :!" .. data.build .. "<CR>", pattern = lang }
-		)
-	end
-	vim.api.nvim_create_autocmd(
-		"FileType",
-		{ command = "nnoremap <Leader>e :split<CR>:ter " .. data.exec .. "<CR>", pattern = lang }
-	)
-end
-vim.api.nvim_create_autocmd("BufWritePre", {
-	command = "lua vim.lsp.buf.formatting_sync(nil, 1000)",
-	pattern = "*.cpp,*.css,*.go,*.h,*.html,*.js,*.json,*.jsx,*.lua,*.md,*.py,*.rs,*.ts,*.tsx,*.yaml",
-})
-vim.api.nvim_create_autocmd("InsertEnter", { command = "set norelativenumber", pattern = "*" })
-vim.api.nvim_create_autocmd("InsertLeave", { command = "set relativenumber", pattern = "*" })
-vim.api.nvim_create_autocmd("TermOpen", { command = "startinsert", pattern = "*" })
-vim.api.nvim_create_autocmd("BufWinEnter", { command = "set noexpandtab tabstop=2 shiftwidth=2", pattern = "*.rs" })
-
-vim.cmd "sign define DiagnosticSignError text=● texthl=DiagnosticSignError"
-vim.cmd "sign define DiagnosticSignWarn text=● texthl=DiagnosticSignWarn"
-vim.cmd "sign define DiagnosticSignInfo text=● texthl=DiagnosticSignInfo"
-vim.cmd "sign define DiagnosticSignHint text=● texthl=DiagnosticSignHint"
-
-vim.diagnostic.config { virtual_text = false }
-
-require("presence"):setup {
-	neovim_image_text = "Neovim",
-	presence_log_level = "error",
-	presence_editing_text = "Editing « %s »",
-	presence_file_explorer_text = "Browsing files",
-	presence_reading_text = "Reading  « %s »",
-	presence_workspace_text = "Working on « %s »",
-}
-
 vim.o.background = "dark"
+vim.o.mouse = "a"
+vim.o.ignorecase = true
+vim.o.fileencoding = true
+vim.o.scrolloff = 8
+vim.o.showmode = false
+vim.o.writebackup = false
+vim.o.fileencoding = "utf-8"
+
 vim.cmd([[colorscheme gruvbox]])
 
+-- Map leader to space
+vim.g.mapleader = " "
+
+local map = require("utils").map
+-- General key binds
+map("n", "<Leader>w", ":w<CR>", { desc = "Write" })
+map("n", "<Leader>q", ":q<CR>", { desc = "Quit" })
+map("n", "<Leader>h", "<cmd>nohlsearch<cr>", { desc = "Clear search" })
+map("n", "<Leader>f", "<cmd>Telescope find_files<cr>", { desc = "Open find" })
+
+-- Terminal
+map("n", "<Leader>tf", "<cmd>ToggleTerm direction=float<cr>", { desc = "Open floating terminal" })
+map("n", "<Leader>th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", { desc = "Open horizontal terminal" })
+map("n", "<Leader>tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", { desc = "Open vertical termainl" })
+map("t", "<esc>", "<C-\\><C-n>", { desc = "Terminal normal mode" })
+map("t", "<C-h>", "<c-\\><c-n><c-w>h", { desc = "Terminal left window navigation" })
+map("t", "<C-j>", "<c-\\><c-n><c-w>j", { desc = "Terminal down window navigation" })
+map("t", "<C-k>", "<c-\\><c-n><c-w>k", { desc = "Terminal up window navigation" })
+map("t", "<C-l>", "<c-\\><c-n><c-w>l", { desc = "Terminal right window navigation" })
+-- NeoTree
+map("n", "<Leader>e", "<cmd>Neotree toggle<cr>", { desc = "Toggle Neotree" })
+map("n", "<Leader>o", "<cmd>Neotree focus<cr>", { desc = "Focus neotree" })
+
+-- Edit nvim configuration
+map("n", "<Leader>v", ":edit ~/.config/nvim/init.lua<CR>", { silent = true, desc = "Open neovim init.lua to edit" })
+
+-- Buffers
+map("n", "<Leader>c", "<cmd>Bdelete<cr>", { desc = "Close current buffer" })
+map("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer tab" })
+map("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Previous buffer tab" })
+map("n", ">b", "<cmd>BufferLineMoveNext<cr>", { desc = "Move buffer tab right" })
+map("n", "<b", "<cmd>BufferLineMovePrev<cr>", { desc = "Move buffer tab left" })
+
+-- Window navitaion
+map("n", "<C-h>", "", { callback = function() require("smart-splits").move_cursor_left() end, desc = "Move to split left" })
+map("n", "<C-j>", "", { callback = function() require("smart-splits").move_cursor_down() end, desc = "Move to split below" })
+map("n", "<C-k>", "", { callback = function() require("smart-splits").move_cursor_up() end, desc = "Move to split above" })
+map("n", "<C-l>", "", { callback = function() require("smart-splits").move_cursor_right() end, desc = "Move to split right" })
+
+-- Resize with arrows
+map("n", "<C-Up>", "", { callback = function() require("smart-splits").resize_up() end, desc = "Resize split up" })
+map("n", "<C-Down>", "", { callback = function() require("smart-splits").resize_down() end, desc = "Resize split down" })
+map("n", "<C-Left>", "", { callback = function() require("smart-splits").resize_left() end, desc = "Resize split left" })
+map("n", "<C-Right>", "", { callback = function() require("smart-splits").resize_right() end, desc = "Resize split right" })
+
+-- Commenting
+map("n", "<Leader>/", "", { callback =function() require("Comment.api").toggle_current_linewise() end, desc = "Comment line" })
+map("v", "<Leader>/", "<esc><cmd>lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<cr>", { desc = "Toggle comment line" })
+
+
+-- Dashboard
 local db = require "dashboard"
 db.custom_header = {
 	"",
 	"",
 	"",
 	"",
-	" ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
-	" ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
-	" ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║",
-	" ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
-	" ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
-	" ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
+	"░█████╗░██╗░░░██╗██╗███╗░░░███╗",
+	"██╔══██╗██║░░░██║██║████╗░████║",
+	"██║░░╚═╝╚██╗░██╔╝██║██╔████╔██║",
+	"██║░░██╗░╚████╔╝░██║██║╚██╔╝██║",
+	"╚█████╔╝░░╚██╔╝░░██║██║░╚═╝░██║",
+	"░╚════╝░░░░╚═╝░░░╚═╝╚═╝░░░░░╚═╝",
 	"",
 	"",
 	"",
 }
+
 db.custom_center = {
 	{
 		icon = " ",
@@ -170,50 +175,16 @@ db.custom_center = {
 		action = "quit",
 	},
 }
-vim.keymap.set("n", "<Leader>o", ":DashboardNewFile<CR>", { silent = true })
+map("n", "<Leader>o", ":DashboardNewFile<CR>", { silent = true })
 
-local luasnip = require "luasnip"
-local cmp = require "cmp"
-cmp.setup {
-	snippet = {
-		expand = function(args)
-			luasnip.lsp_expand(args.body)
-		end,
-	},
-	mapping = cmp.mapping.preset.insert {
-		["<C-Space>"] = cmp.mapping.complete(),
-		["<CR>"] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Replace, select = true },
-		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
-		["<S-Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_prev_item()
-			else
-				fallback()
-			end
-		end, { "i", "s" }),
-	},
-	sources = { { name = "nvim_lsp" }, { name = "luasnip" } },
-}
-
+-- LspServers
 local servers = {
 	"bashls",
 	"clangd",
 	"cssls",
 	"gopls",
 	"html",
-	"pyright",
-	"rust_analyzer",
-	"sumneko_lua",
-	"tailwindcss",
-	"tsserver",
 }
-local has_formatter = { "gopls", "html", "rust_analyzer", "sumneko_lua", "tsserver" }
 for _, name in pairs(servers) do
 	local found, server = require("nvim-lsp-installer").get_server(name)
 	if found and not server:is_installed() then
@@ -221,60 +192,8 @@ for _, name in pairs(servers) do
 		server:install()
 	end
 end
-local setup_server = {
-	sumneko_lua = function(opts)
-		opts.settings = { Lua = { diagnostics = { globals = { "vim" } } } }
-	end,
-}
-require("nvim-lsp-installer").on_server_ready(function(server)
-	local opts = {
-		on_attach = function(client, bufnr)
-			vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-			local opts = { buffer = bufnr }
-			vim.keymap.set("n", "<Leader>h", vim.lsp.buf.hover, opts)
-			vim.keymap.set("n", "<Leader>i", vim.lsp.buf.definition, opts)
-			vim.keymap.set("n", "<Leader>r", vim.lsp.buf.rename, opts)
-			local should_format = true
-			for _, value in pairs(has_formatter) do
-				if client.name == value then
-					should_format = false
-				end
-			end
-			if not should_format then
-				client.resolved_capabilities.document_formatting = false
-			end
-		end,
-		capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
-	}
-	if setup_server[server.name] then
-		setup_server[server.name](opts)
-	end
-	server:setup(opts)
-end)
 
-local null_ls = require "null-ls"
-null_ls.setup {
-	sources = {
-		null_ls.builtins.diagnostics.eslint_d,
-		null_ls.builtins.formatting.autopep8,
-		null_ls.builtins.formatting.eslint_d,
-		null_ls.builtins.formatting.gofmt,
-		null_ls.builtins.formatting.prettierd,
-		null_ls.builtins.formatting.rustfmt,
-		null_ls.builtins.formatting.stylua,
-	},
-}
-
-require("gitsigns").setup {
-	signs = {
-		add = { text = "+" },
-		change = { text = "~" },
-		delete = { text = "_" },
-		topdelete = { text = "‾" },
-		changedelete = { text = "~" },
-	},
-}
-
+-- Lualine
 require("lualine").setup {
 	options = {
 		theme = 'gruvbox_dark',
@@ -309,44 +228,93 @@ require("lualine").setup {
 	},
 }
 
-local telescope = require "telescope"
-telescope.setup {
-	defaults = {
-		mappings = { n = { ["o"] = require("telescope.actions").select_default } },
-		initial_mode = "normal",
-		hidden = true,
-		file_ignore_patterns = { ".git/", "node_modules/", "target/" },
-	},
-	extensions = { file_browser = { hidden = true } },
-}
-telescope.load_extension "file_browser"
-vim.keymap.set("n", "<Leader>n", telescope.extensions.file_browser.file_browser)
-vim.keymap.set("n", "<Leader>f", require("telescope.builtin").find_files)
-vim.keymap.set("n", "<Leader>t", require("telescope.builtin").treesitter)
-
+-- Treesitter
 require("nvim-treesitter.configs").setup {
 	ensure_installed = {
 		"bash",
 		"cpp",
-		"css",
+		"c",
 		"go",
-		"html",
 		"lua",
+		"cmake",
 		"make",
-		"python",
-		"rust",
-		"tsx",
-		"typescript",
-		"yaml",
 	},
 	highlight = { enable = true },
 }
 
-require("rust-tools").setup {}
+-- Neotree
+require("neo-tree").setup {
+	close_if_last_window = true,
+	popup_border_style = "rounded",
+	enable_diagnostics = false,
+	default_component_configs = {
+		indent = {
+			padding = 0,
+			with_expanders = false,
+		},
+		icon = {
+			folder_closed = "",
+			folder_open = "",
+			folder_empty = "",
+			default = "",
+		},
+		git_status = {
+			symbols = {
+				added = "",
+				deleted = "",
+				modified = "",
+				renamed = "➜",
+				untracked = "★",
+				ignored = "◌",
+				unstaged = "✗",
+				staged = "✓",
+				conflict = "",
+			},
+		},
+	},
+	window = {
+		width = 25,
+		mappings = {
+			["o"] = "open",
+		},
+	},
+	filesystem = {
+		filtered_items = {
+			visible = false,
+			hide_dotfiles = false,
+			hide_gitignored = false,
+			hide_by_name = {
+				".DS_Store",
+				"thumbs.db",
+				"node_modules",
+				"__pycache__",
+			},
+		},
+		follow_current_file = true,
+		hijack_netrw_behavior = "open_current",
+		use_libuv_file_watcher = true,
+	},
+	git_status = {
+		window = {
+		position = "float",
+		},
+	},
+	event_handlers = {
+		{ event = "neo_tree_buffer_enter", handler = function(_) vim.opt_local.signcolumn = "auto" end },
+	}
+}
 
-vim.keymap.set({ "n", "v" }, "<Leader>c", ":Commentary<CR>", { silent = true })
-
-require("nvim-autopairs").setup {}
-
-require("lsp_lines").setup {}
-vim.keymap.set("n", "<Leader>x", require("lsp_lines").toggle)
+-- Tooglterm
+require("toggleterm").setup {
+	size = 10,
+	open_mapping = [[<c-\>]],
+	shading_factor = 2,
+	direction = "float",
+	float_opts = {
+	border = "curved",
+	highlights = {
+			border = "Normal",
+			background = "Normal",
+		},
+	},
+}
