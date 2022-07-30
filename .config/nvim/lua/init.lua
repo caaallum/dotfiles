@@ -50,7 +50,8 @@ require('packer').startup(function(use)
 	use "https://github.com/famiu/bufdelete.nvim"
 	use "https://github.com/mrjones2014/smart-splits.nvim"
 	use "https://github.com/numToStr/Comment.nvim"
-	use "https://github.com/akinsho/bufferline.nvim"
+	use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons' }
+	use "https://github.com/p00f/nvim-ts-rainbow"
 end)
 
 -- Vim config
@@ -95,6 +96,7 @@ map("t", "<C-h>", "<c-\\><c-n><c-w>h", { desc = "Terminal left window navigation
 map("t", "<C-j>", "<c-\\><c-n><c-w>j", { desc = "Terminal down window navigation" })
 map("t", "<C-k>", "<c-\\><c-n><c-w>k", { desc = "Terminal up window navigation" })
 map("t", "<C-l>", "<c-\\><c-n><c-w>l", { desc = "Terminal right window navigation" })
+
 -- NeoTree
 map("n", "<Leader>e", "<cmd>Neotree toggle<cr>", { desc = "Toggle Neotree" })
 map("n", "<Leader>o", "<cmd>Neotree focus<cr>", { desc = "Focus neotree" })
@@ -125,6 +127,9 @@ map("n", "<C-Right>", "", { callback = function() require("smart-splits").resize
 map("n", "<Leader>/", "", { callback =function() require("Comment.api").toggle_current_linewise() end, desc = "Comment line" })
 map("v", "<Leader>/", "<esc><cmd>lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<cr>", { desc = "Toggle comment line" })
 
+-- Split window
+map("n", "<Leader>sh", "<cmd>vsplit<cr>", { desc = "Split window horizontally" })
+map("n", "<Leader>sv", "<cmd>split<cr>", { desc = "Split window verticall" })
 
 -- Dashboard
 local db = require "dashboard"
@@ -193,6 +198,24 @@ for _, name in pairs(servers) do
 	end
 end
 
+-- Bufferline
+require("bufferline").setup {
+	options = {
+    offsets = {
+      { filetype = "NeoTree", text = "", padding = 1 },
+      { filetype = "neo-tree", text = "", padding = 1 },
+      { filetype = "Outline", text = "", padding = 1 },
+    },
+    buffer_close_icon = "x",
+    modified_icon = "~",
+    close_icon = "x",
+    max_name_length = 14,
+    max_prefix_length = 13,
+    tab_size = 20,
+    separator_style = "thin",
+  }
+}
+
 -- Lualine
 require("lualine").setup {
 	options = {
@@ -240,6 +263,7 @@ require("nvim-treesitter.configs").setup {
 		"make",
 	},
 	highlight = { enable = true },
+	rainbow = { enabled = true, max_file_lines = nil }
 }
 
 -- Neotree
@@ -318,3 +342,5 @@ require("toggleterm").setup {
 		},
 	},
 }
+
+
