@@ -16,17 +16,13 @@ require('packer').startup(function(use)
 
 	use "andweeb/presence.nvim"
 	use "glepnir/dashboard-nvim"
-	use "hrsh7th/cmp-nvim-lsp"
-	use "hrsh7th/nvim-cmp"
 	use "jose-elias-alvarez/null-ls.nvim"
-	use "L3MON4D3/LuaSnip"
 	use "lewis6991/gitsigns.nvim"
 	use "nvim-lualine/lualine.nvim"
 	use "nvim-telescope/telescope.nvim"
 	use "nvim-treesitter/nvim-treesitter"
 	use "onsails/lspkind-nvim"
 	use "ryanoasis/vim-devicons"
-	use "saadparwaiz1/cmp_luasnip"
 	use "tpope/vim-commentary"
 	use "williamboman/nvim-lsp-installer"
 	use "windwp/nvim-autopairs"
@@ -52,6 +48,13 @@ require('packer').startup(function(use)
 	use "https://github.com/numToStr/Comment.nvim"
 	use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons' }
 	use "https://github.com/p00f/nvim-ts-rainbow"
+	use { "L3MON4D3/LuaSnip", config = function() require "configs.luasnip" end }
+	use { 'hrsh7th/nvim-cmp', config = function() require "configs.cmp" end }
+	use 'hrsh7th/cmp-nvim-lsp'
+	use 'hrsh7th/cmp-buffer'
+	use 'hrsh7th/cmp-path'
+	use 'hrsh7th/cmp-cmdline'
+	use "saadparwaiz1/cmp_luasnip"
 end)
 
 -- Vim config
@@ -74,6 +77,7 @@ vim.o.scrolloff = 8
 vim.o.showmode = false
 vim.o.writebackup = false
 vim.o.fileencoding = "utf-8"
+vim.opt.completeopt = {'menu', 'menuone', 'noselect'}
 
 vim.cmd([[colorscheme gruvbox]])
 
@@ -262,6 +266,9 @@ require("nvim-treesitter.configs").setup {
 		"cmake",
 		"make",
 	},
+	autotag = {
+		enable = true,
+	},
 	highlight = { enable = true },
 	rainbow = { enabled = true, max_file_lines = nil }
 }
@@ -343,4 +350,6 @@ require("toggleterm").setup {
 	},
 }
 
+require("cmp").setup {
 
+}
