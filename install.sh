@@ -13,12 +13,12 @@ create_link_config() {
 
 mkdir -p $CONFIG
 
-create_link_config "alacritty"
-create_link_config "bspwm"
-create_link_config "dunst"
-create_link_config "polybar"
-create_link_config "rofi"
-create_link_config "sxhkd"
+CONFIG_DIRS=("alacritty" "bspwm" "dunst" "polybar" "rofi" "sxhkd")
+
+for i in ${CONFIG_DIRS[@]}
+do
+    echo $i
+done
 
 create_link "$DIR"/.bashrc ~/.bashrc
 
