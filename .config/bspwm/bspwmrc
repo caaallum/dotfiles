@@ -70,7 +70,7 @@ ksuperkey -e 'Super_R=Alt_L|F1' &
 xsetroot -cursor_name left_ptr
 
 # Restore wallpaper
-feh --no-febg --bg-scale ./wallpaper.png
+feh --no-febg --bg-scale ~.config/bspwm/wallpaper.png
 
 # Start mpd
 exec mpd &
