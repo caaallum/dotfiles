@@ -3,15 +3,16 @@
 DIR="$( cd "$( dirname "$0" )" && pwd )"
 CONFIG=~/.config
 CONFIG_DIRS=(alacritty bspwm dunst polybar rofi sxhkd)
-DEPENDENCIES=x11-misc/sddm \
-             gui-libs/display-manager-init \
-             x11-terms/alacritty \
-             x11-wm/bspwm \
-             x11-misc/dunst \
-             x11-misc/polybar \
-             x11-misc/rofi \
-             x11-misc/sxhkd \
-             media-gfx/feh 
+DEPENDENCIES="x11-misc/sddm" \
+             "gui-libs/display-manager-init" \
+             "x11-terms/alacritty" \
+             "x11-wm/bspwm" \
+             "x11-misc/dunst" \
+             "x11-misc/polybar" \
+             "x11-misc/rofi" \
+             "x11-misc/sxhkd" \
+             "media-gfx/feh" \
+             "x11-apps/setxkbmap"
 
 create_link() {
     ln -s $1 $2
