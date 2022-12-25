@@ -8,7 +8,7 @@ create_link() {
 }
 
 create_link_config() {
-    create_link "$DIR/$1" "$CONFIG"
+    create_link "$DIR/.config/$1" "$CONFIG/$1"
 }
 
 mkdir -p $CONFIG
