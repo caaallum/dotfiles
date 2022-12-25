@@ -8,7 +8,7 @@ create_link() {
 }
 
 create_link_config() {
-    create_link "$(DIR)/$1" "$(CONFIG)"
+    create_link "$DIR/$1" "$CONFIG"
 }
 
 mkdir -p $CONFIG
@@ -20,5 +20,5 @@ create_link_config "polybar"
 create_link_config "rofi"
 create_link_config "sxhkd"
 
-create_link "$(DIR)"/.bashrc ~/.bashrc
+create_link "$DIR"/.bashrc ~/.bashrc
 
