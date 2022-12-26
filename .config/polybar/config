@@ -32,17 +32,17 @@ height = 20
 offset-x = 0
 offset-y = 0
 
-background = ${color.BACKGROUND}
-foreground = ${color.FOREGROUND}
+background = ${color.base}
+foreground = ${color.base}
 
 radius-top = 0.0
 radius-bottom = 0.0
 
 line-size = 2
-line-color = ${color.BLUE}
+line-color = ${color.blue}
 
 border-size = 4
-border-color = ${color.BACKGROUND}
+border-color = ${color.base}
 
 padding = 1
 module-margin-left = 1
@@ -68,7 +68,7 @@ tray-position = right
 tray-detached = false
 tray-maxsize = 16
 tray-transparent = false
-tray-background = ${color.BACKGROUND}
+tray-background = ${color.base}
 tray-offset-x = 0
 tray-offset-y = 0
 tray-padding = 0
@@ -247,7 +247,7 @@ format-volume = <ramp-volume> <label-volume>
 format-muted = <label-muted>
 format-muted-prefix = 婢
 format-muted-prefix-font = 2
-format-muted-prefix-foreground = ${color.RED}
+format-muted-prefix-foreground = ${color.red}
 
 label-volume = %percentage%%
 label-muted = " Muted"
@@ -264,7 +264,7 @@ ramp-volume-7 = 墳
 ramp-volume-8 = 墳
 ramp-volume-9 = 墳
 ramp-volume-font = 2
-ramp-volume-foreground = ${color.BLUE}
+ramp-volume-foreground = ${color.blue}
 
 ramp-headphones-0 = 
 ramp-headphones-1 = 
@@ -314,7 +314,7 @@ format-discharging = <ramp-capacity> <label-discharging>
 format-full = <label-full>
 format-full-prefix = " "
 format-full-prefix-font = 2
-format-full-prefix-foreground = ${color.RED}
+format-full-prefix-foreground = ${color.red}
 
 label-charging = %percentage%%
 label-discharging = %percentage%%
@@ -326,7 +326,7 @@ ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
 ramp-capacity-font = 2
-ramp-capacity-foreground = ${color.YELLOW}
+ramp-capacity-foreground = ${color.yellow}
 
 animation-charging-0 = 
 animation-charging-1 = 
@@ -334,7 +334,7 @@ animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
 animation-charging-font = 2
-animation-charging-foreground = ${color.GREEN}
+animation-charging-foreground = ${color.green}
 animation-charging-framerate = 750
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
@@ -371,36 +371,36 @@ label-monitor = %name%
 ;   label-dimmed-occupied
 ;   label-dimmed-urgent
 ;   label-dimmed-empty
-;label-dimmed-foreground = ${color.FOREGROUND}
-;label-dimmed-underline = ${color.YELLOW}
-;label-dimmed-focused-background = ${color.BACKGROUND}
+;label-dimmed-foreground = ${color.base}
+;label-dimmed-underline = ${color.yellow}
+;label-dimmed-focused-background = ${color.base}
 
 label-focused = %index%
-label-focused-foreground = ${color.BACKGROUND}
-label-focused-background = ${color.BLUE}
-;label-focused-underline = ${color.RED}
+label-focused-foreground = ${color.base}
+label-focused-background = ${color.blue}
+;label-focused-underline = ${color.red}
 label-focused-padding = 1
 
 label-occupied = %index%
-label-occupied-foreground = ${color.BACKGROUND}
-label-occupied-background = ${color.GREEN}
-;label-occupied-underline = ${color.GREEN}
+label-occupied-foreground = ${color.base}
+label-occupied-background = ${color.green}
+;label-occupied-underline = ${color.green}
 label-occupied-padding = 1
 
 label-urgent = %index%
-label-urgent-foreground = ${color.BACKGROUND}
-label-urgent-background = ${color.RED}
-;label-urgent-underline = ${color.RED}
+label-urgent-foreground = ${color.yellow}
+label-urgent-background = ${color.red}
+;label-urgent-underline = ${color.red}
 label-urgent-padding = 1
 
 label-empty = %index%
-label-empty-foreground = ${color.FOREGROUND}
+label-empty-foreground = ${color.blue}
 label-empty-padding = 1
 
 ; Separator in between workspaces
 label-separator = " "
 label-separator-padding = 0
-;label-separator-foreground = ${color.YELLOW}
+;label-separator-foreground = ${color.yellow}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -408,8 +408,8 @@ label-separator-padding = 0
 type = internal/bspwm
 
 format = <label-mode>
-format-background = ${color.YELLOW}
-format-foreground = ${color.BACKGROUND}
+format-background = ${color.blue}
+format-foreground = ${color.yellow}
 format-padding = 1
 
 label-monocle = "Monocle"
@@ -429,8 +429,8 @@ label-private = " Private"
 type = internal/bspwm
 
 format = <label-mode>
-format-background = ${color.YELLOW}
-format-foreground = ${color.BACKGROUND}
+format-background = ${color.yellow}
+format-foreground = ${color.base}
 format-padding = 1
 
 label-monocle = ""
@@ -458,7 +458,7 @@ time-alt = %A, %d %B %Y
 format = <label>
 format-prefix = " "
 format-prefix-font = 2
-format-prefix-foreground = ${color.RED}
+format-prefix-foreground = ${color.red}
 
 label = %date% %time%
 
@@ -476,7 +476,7 @@ interval = 2
 format-online = <label-song> <icon-prev> <toggle> <icon-next>
 format-online-prefix = " "
 format-online-prefix-font = 1
-format-online-prefix-foreground = ${color.GREEN}
+format-online-prefix-foreground = ${color.green}
 
 format-playing = ${self.format-online}
 format-paused = <label-song> <toggle>
@@ -490,18 +490,18 @@ label-song-ellipsis = true
 
 icon-play = 
 icon-play-font = 2
-icon-play-foreground = ${color.GREEN}
+icon-play-foreground = ${color.green}
 icon-pause = 
 icon-pause-font = 2
-icon-pause-foreground = ${color.YELLOW}
+icon-pause-foreground = ${color.yellow}
 icon-stop = 
-icon-stop-foreground = ${color.RED}
+icon-stop-foreground = ${color.red}
 icon-prev = 玲
 icon-prev-font = 2
-icon-prev-foreground = ${color.CYAN}
+icon-prev-foreground = ${color.blue}
 icon-next = 怜
 icon-next-font = 2
-icon-next-foreground = ${color.CYAN}
+icon-next-foreground = ${color.blue}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -522,7 +522,7 @@ format-connected = <ramp-signal> <label-connected>
 format-disconnected = <label-disconnected>
 format-disconnected-prefix = "睊 "
 format-disconnected-prefix-font = 2
-format-disconnected-prefix-foreground = ${color.RED}
+format-disconnected-prefix-foreground = ${color.red}
 
 label-connected = " %ifname% %local_ip%"
 label-disconnected = " Disconnected"
