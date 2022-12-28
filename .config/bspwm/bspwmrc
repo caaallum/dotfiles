@@ -76,7 +76,7 @@ feh --no-febg --bg-scale ~/.config/bspwm/wallpaper.png
 exec mpd &
 
 # Start polybar
-polybar main -c ~/.config/polybar/config &
+$HOME/.config/polybar/launch.sh
 
 # Start picom
 picom -f &
