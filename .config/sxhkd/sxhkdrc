@@ -110,19 +110,19 @@ super + ctrl + shift + space
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
 # Resizing
-ctrl + h
+ctrl + alt + h
     bspc node -z right -40 0; \
     bspc node -z left +40 0
 
-ctrl + l
+ctrl + alt + l
     bspc node -z right +40 0; \
     bspc node -z left -40 0; 
 
-ctrl + k 
+ctrl + alt + k 
     bspc node -z top 0 +20; \
     bspc node -z bottom 0 -20
 
-ctrl + l
+ctrl + alt + l
     bspc node -z top 0 -20; \
     bspc node -z bottom 0 +20
 
