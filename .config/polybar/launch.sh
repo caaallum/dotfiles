@@ -2,6 +2,10 @@
 
 killall -q polybar
 
-echo "---" | tee -a /tmp/polybar.log
-
-polybar --reload example | tee -a /tmp/polybar.log & disown 
+if type "xrandr"; then
+  for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+    MONITOR=$m polybar --reload example &
+  done
+else
+  polybar --reload example &
+fi
