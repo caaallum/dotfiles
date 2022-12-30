@@ -1,11 +1,12 @@
 #!/bin/bash
 
-## Environtment
-export PATH="${PATH}:$HOME/.config/bspwm/bin"
-
 setxkbmap -layout gb
+ xrandr --output DP-2 --primary --mode 2560x1440 --rotate normal --output DP-1 --mode 1920x1080 --rotate normal --left-of DP-2
 
-## Get colors from .Xresources -------------------------------#
+bspc monitor DP-2 -d 1 2 3 4 5
+bspc monitor DP-1 -d 6 7 8 9 0
+
+# Colors
 xrdb ~/.Xresources
 getcolors () {
 	FOREGROUND=$(xrdb -query | grep 'foreground:'| awk '{print $NF}')
