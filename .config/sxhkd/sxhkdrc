@@ -6,9 +6,9 @@
 alt + Return
 	alacritty
 
-# program launcher
-alt + @space
-	rofi -show drun
+# Rofi
+alt + {@space,r,p,s}
+	sh $HOME/.config/rofi/bin/{launcher,runner,powermenu,screenshot}
 
 # make sxhkd reload its configuration files:
 alt + Escape

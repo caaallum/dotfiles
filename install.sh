@@ -12,7 +12,9 @@ DEPENDENCIES="x11-misc/sddm" \
              "x11-misc/rofi" \
              "x11-misc/sxhkd" \
              "media-gfx/feh" \
-             "x11-apps/setxkbmap"
+             "x11-apps/setxkbmap" \
+             "media-fonts/fontawesome" \
+             "media-fonts/cascadia-code"
 
 create_link() {
     ln -s $1 $2
