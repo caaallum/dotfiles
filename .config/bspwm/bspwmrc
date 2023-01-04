@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export PATH=~/.local/bin:$PATH
+
 setxkbmap -layout gb
  xrandr --output DP-2 --primary --mode 2560x1440 --rotate normal --output DP-1 --mode 1920x1080 --rotate normal --left-of DP-2
 
