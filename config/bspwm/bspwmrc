@@ -3,10 +3,7 @@
 export PATH=~/.local/bin:$PATH
 
 setxkbmap -layout gb
- xrandr --output DP-2 --primary --mode 2560x1440 --rotate normal --output DP-1 --mode 1920x1080 --rotate normal --left-of DP-2
-
-bspc monitor DP-2 -d 1 2 3 4 5
-bspc monitor DP-1 -d 6 7 8 9 0
+ # xrandr --output DP-2 --primary --mode 2560x1440 --rotate normal --output DP-1 --mode 1920x1080 --rotate normal --left-of DP-2
 
 # Colors
 xrdb ~/.Xresources
@@ -73,7 +70,7 @@ ksuperkey -e 'Super_R=Alt_L|F1' &
 xsetroot -cursor_name left_ptr
 
 # Restore wallpaper
-feh --bg-fill ~/.config/bspwm/wallpaper.png
+feh --bg-fill ~/.config/bspwm/wallpaper.jpg
 
 # Start mpd
 exec mpd &
