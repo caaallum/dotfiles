@@ -45,6 +45,9 @@ Plug 'stephpy/vim-php-cs-fixer'
 Plug 'posva/vim-vue'
 Plug 'leafOfTree/vim-vue-plugin'
 Plug 'preservim/nerdcommenter'
+Plug 'frazrepo/vim-rainbow'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-commentary'
 
 call plug#end()
 
@@ -118,6 +121,7 @@ set ttyfast
 set gfn=Monospace\ 10
 set splitbelow
 set splitright
+set autoread
 
 """""""""""""""""""""""""""""""""""""""
 " Plugin options
@@ -161,6 +165,10 @@ let g:yankstack_yank_keys = ['y', 'd']
 
 nmap <C-p> <Plug>yankstack_substitute_older_paste
 nmap <C-n> <Plug>yankstack_substitute_newer_paste
+
+" Vim rainbow
+let g:rainbow_active = 1
+
 
 """""""""""""""""""""""""""""""""""""""
 " Keymaps
@@ -244,6 +252,10 @@ map <leader>t<leader> <cmd>tabnext<cr>
 " Create splits
 map <leader>sv <cmd>vsplit<cr>
 map <leader>sh <cmd>split<cr>
+
+" Comments
+nnoremap <leader>/ <plug>CommentaryLine
+vnoremap <leader>/ <plug>Commentary
 
 """""""""""""""""""""""""""""""""""""""
 " Languages
