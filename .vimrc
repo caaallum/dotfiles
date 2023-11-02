@@ -242,8 +242,8 @@ map <leader>tm <cmd>tabmove
 map <leader>t<leader> <cmd>tabnext<cr>
 
 " Create splits
-map | <cmd>vsplit<cr>
-"nnoremap "\\" <cmd>split<cr>
+map <leader>sv <cmd>vsplit<cr>
+map <leader>sh <cmd>split<cr>
 
 """""""""""""""""""""""""""""""""""""""
 " Languages
