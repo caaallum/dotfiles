@@ -132,11 +132,17 @@ let g:NERDTreeWinPos = "left"
 let NERDTreeShowHidden=0
 let NERDTreeIgnore = ['\.pyc$', '__pycache__', '.git', 'node_modules']
 let g:NERDTreeWinSize=35
+" let NERDTreeMapOpenInTab='<ENTER>'
 map <leader>e :NERDTreeToggle<cr>
 map <leader>eb :NERDTreeFromBookmark<Space>
 map <leader>ef :NERDTreeFind<cr>
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+" function! NERDTreeCustomOpenDir(node)
+" 	call a:node.activate()
+" endfunction
+" call NERDTreeAddKeyMap({'key': '<ENTER>', 'scope': 'DirNode', 'callback': 'NERDTreeCustomOpenDir', 'quickhelpText': 'open dir'})
+let NERDTreeCustomOpenArgs={'file':{'where': 't'}}
 
 " Lightline
 let g:lightline = {
@@ -192,8 +198,12 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" Switch tabs
+map <S-h> gT
+map <S-l> gt
+
 " Close current buffer
-map <leader>bd <cmd>Bclose<cr><cmd>tabclose<cr>gT
+map <leader>c <cmd>bd<cr><cmd>tabclose<cr>gT
 
 " Move between buffers
 map <leader>l <cmd>bnext<cr>
