@@ -1,0 +1,73 @@
+{
+    "layer": "top",
+    "position": "top",
+    "mod": "dock",
+    "exclusive": true,
+    "passtrough": false,
+    "gtk-layer-shell": true,
+    "height": 0,
+    "modules-left": [
+        "custom/launcher",
+        "cpu",
+        "memory",
+        "hyprland/workspaces",
+    ],
+    "modules-center": ["hyprland/window"],
+    "modules-right": [
+        "battery",
+        "clock"
+    ],
+    "hyprland/window": {
+        "format": "{}"
+    },
+    "cpu": {
+        "format": "󰻠 {usage}%",
+        "format-alt": "󰻠 {avg_frequency} GHz",
+        "interval": 5
+    },
+    "memory": {
+        "format": "󰍛 {}%",
+        "format-alt": "󰍛 {used}/{total} GiB",
+        "interval": 5
+    },
+    "tray": {
+        "icon-size": 13,
+        "tooltip": false,
+        "spacing": 10
+    },
+    "clock": {
+        "format": "{: %R   %d/%m}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format":"{icon}  {capacity}%",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{icon} {time}",
+        "format-icons": ["", "", "", "", ""]
+	},
+    "custom/launcher": {
+        "format": "󰈸",
+        "on-click": "killall rofi || rofi -show drun -theme ~/.config/rofi/global/rofi.rasi"
+    },
+    "hyprland/workspaces": {
+        "active-only": false,
+        "all-outputs": true,
+        "disable-scroll": false,
+        "on-scroll-up": "hyprctl dispatch workspace -1",
+        "on-scroll-down": "hyprctl dispatch workspace +1",
+		"format": "{icon}",
+		"on-click": "activate",
+		"format-icons": {
+			"urgent": "",
+			"active": "",
+			"default": "󰧞",
+            "sort-by-number": true
+        }
+    }
+}
